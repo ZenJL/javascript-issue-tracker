@@ -1,38 +1,60 @@
-// api URL
-const apiBackend = 'https://tony-json-server.herokuapp.com';
+// api
+const backendApi = 'https://tony-json-server.herokuapp.com';
 
-const issuesList = document.getElementById("issuesList");
+// an empty array store backend data
+let dataIssues = [];
 
-function autoReload() {
-    getApiTodo(responseData => {
-        renderData(responseData);
-    });
-};
+// get elements
+const signoutBtn = document.getElementById('signout');
 
-function autoReloadItem() {
-    getSingleTodo(responseData => {
-        renderSingleItem(responseData);
-    });
-}
+const issuesList = document.getElementById('issuesList');
+const addForm = document.getElementById("issueInputForm");
+const issueDescriptionInput = document.getElementById('inputIssueDescription');
+const issueSeveritySelect = document.getElementById('severity-status');
+const searchBox = document.getElementById("search-box");
+const filterAllBtn = document.getElementById('all-status');
+const filterOpenBtn = document.getElementById('open-status');
+const filterCloseBtn = document.getElementById('close-status');
+const filterAll = filterAllBtn.value;
+const filterOpen = filterOpenBtn.value;
+const filterClose = filterCloseBtn.value;
+const orderBy = document.getElementById('sort-value');
 
+
+signoutBtn.addEventListener('click', function() {
+    window.location.href = '../../loginPage.html'
+});
+
+// enable autoReload
 autoReload();
 
-function getApiTodo(cb) {
-    fetch(`${apiBackend}/api/todos`)
+
+// call api
+function callApi(callback) {
+    fetch(`${backendApi}/api/todos`)
         .then(response => response.json())
-        .then(cb)
+        .then(callback)
+        .catch(error => {
+            console.log('error!');
+            console.error(error)
+        })
 };
 
-function getSingleTodo(cb, id) {
-    fetch(`${apiBackend}/api/todos/${id}`)
-        .then(response => response.json())
-        .then(cb)
+// autoReload
+function autoReload() {
+    callApi(responseData => {
+        // console.log(responseData)
+        renderData(responseData.data);
+    });
 };
 
-function renderData(responseData) {
+
+// renderData
+function renderData(issues) {
     issuesList.innerHTML = '';
+    
+    dataIssues = issues;
 
-    const issues = responseData.data;
     issues.forEach(issue => {
         issuesList.innerHTML += `
             <li id="issue-list-item--${issue.id}" class="issue-list-item">
@@ -44,65 +66,60 @@ function renderData(responseData) {
                     <h3 class="issue-name">${issue.description}</h3>
                     <div class="list-item-severity">${issue.severity}</div>
                     <div class="list-item-group-btn">
-                        <button id="update-status-btn" value="1" class="btn btn--close" onclick="updateIssueStatus('${issue.id}')" >Close</button>
+                       
+                        <button id="changeSttBtn" class="btn btn--close" onclick="updateIssueStt('${issue.id}', '${issue.status}')">
+                            ${(issue.status === 'new' ? 'Close' : 'Open')}
+                        </button>
+                        
+                        
                         <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
                     </div>
                 </div>
             </li>
             <br>
         `
+
+
+        // issue's status btn event
+        
+        // changeSttBtn.addEventListener('click', function(event) {
+        //     updateIssueStt(id, updateSttValue)
+        // })
+    
+        // const changeSttBtn = document.getElementById('changeSttBtn');
+        // const changeSttBtnValue = changeSttBtn.innerHTML;
+        // console.log(changeSttBtnValue)
     })
-    // const statusValue = document.getElementById('update-status-btn');   // vẫn ra
-    // console.log(statusValue.value);
+    
 };
 
-
-function renderSingleItem(responseData) {
-    const issue = responseData.data;
-    
-    const renderSingleIssue = document.getElementById(`issue-list-item--${issue.id}`);
-    
-    renderSingleIssue.innerHTML = '';
-
-    renderSingleIssue.innerHTML = `
-        <li id="issue-list-item--${issue.id}" class="issue-list-item">
-            <div class="list-item-header">
-                <div for="" class="list-item-title">${issue.id}</div>
-                <div id="issueStatus" class="list-item-status">${issue.status}</div>
-            </div>
-            <div class="list-item-content">
-                <h3 class="issue-name">${issue.description}</h3>
-                <div class="list-item-severity">${issue.severity}</div>
-                <div class="list-item-group-btn">
-                    <button id="update-status-btn" value="1" class="btn btn--close" onclick="updateIssueStatus('${issue.id}')" >Close</button>
-                    <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
-                </div>
-            </div>
-        </li>
-        <br>
-    `
-};
+// const changeSttBtn = document.getElementsByClassName('changeSttBtn');
+// console.log(changeSttBtn.innerHTML);
 
 
-// add new issue
-document.getElementById("issueInputForm").addEventListener('submit', function(event) {
+
+// form add issue event
+addForm.addEventListener('submit', function(event) {
     event.preventDefault();
     addIssue();
 });
 
+
+// add new issue
 function addIssue() {
-    const issueDescription = document.getElementById("inputIssueDescription").value;
-    const issueSeverity = document.getElementById("severity-status").value;
-    const addTime = new Date();
+    const issueDescription = issueDescriptionInput.value;
+    const issueSeverity = issueSeveritySelect.value;
+    const createIssueId = new Date();
 
-    // check input issue
+    // check validate description input
     if(issueDescription === '') {
-        alert('please enter the issue for tracking');
+        alert('Please enter Issue Description for tracking');
         return;
-    }
+    };
 
+    // example data template
     const newIssue = {
-        "id": addTime,
+        "id": createIssueId,
         "title": "Learn React",
         "author": "Tony Nguyen",
         "description": issueDescription,
@@ -110,124 +127,109 @@ function addIssue() {
         "status": "new",
     };
 
-
-    // Post issue to backend
-    fetch(`${apiBackend}/api/todos`, {
-        method: "POST",
+    // Post issue to server
+    fetch(`${backendApi}/api/todos`, {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newIssue)
+        body: JSON.stringify(newIssue),
     })
-        .then(autoReload);
+        .then(autoReload)
 };
 
 
 // delete issue
 function deleteIssue(id) {
-    fetch(`${apiBackend}/api/todos/${id}`, {
-        method: "DELETE",
+    fetch(`${backendApi}/api/todos/${id}`, {
+        method: 'DELETE',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
     })
-        .then(autoReload);
+        .then(autoReload)
 };
 
-// _____________________________________________ START UPDATE ISSUE ___________________________________________________
 
-function updateIssueStatus(id) {
-    getSingleTodo(responseData => {
-        
-        const issue = responseData.data;
-        const currentStatus = issue.status;
-        // console.log(currentStatus)       //still fine
+// change issue's status
+function changeIssueStt(stt) {
+    let newStt = '';
+    if(stt === 'close') {
+        newStt = 'new';
+    };
+    if(stt === 'new') {
+        newStt = 'close';
+    };
+    return newStt;
+};
 
+// update issue's status
+function updateIssueStt(id, stt) {
+    if(!id) {
+        alert('somthing wrong with id');
+        return;
+    };
+    
+    // new status
+    const updateStt = changeIssueStt(stt);
+    
+    // example update data template
+    const updateIssue = {
+        "status": updateStt,
+    };
 
-        const statusValue = document.getElementById('update-status-btn');
-        console.log(statusValue.value);
-        
-        // let newStatus = "";
-
-        // if(!currentStatus) {
-        //     if(currentStatus === "new") {
-        //         newStatus = "close";
-        //     };
-        //     if(currentStatus === "close") {
-        //         newStatus = "new";
-        //     };
-
-        //     const updateIssueStt = {
-        //         "status": newStatus,
-        //     }
-        
-        //     fetch(`${apiBackend}/api/todos/${id}`, {
-        //         method: "PATCH",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(updateIssueStt)
-        //     })
-        //         .then(response => response.json())
-        //         .then(responseData => {
-        //             issuesList.innerHTML = '';
-
-        //             const issues = responseData.data;
-        //             issues.forEach(issue => {
-        //                 issuesList.innerHTML += `
-        //                     <li id="issue-list-item--${issue.id}" class="issue-list-item">
-        //                         <div class="list-item-header">
-        //                             <div for="" class="list-item-title">${issue.id}</div>
-        //                             <div id="issueStatus" class="list-item-status">${issue.status}</div>
-        //                         </div>
-        //                         <div class="list-item-content">
-        //                             <h3 class="issue-name">${issue.description}</h3>
-        //                             <div class="list-item-severity">${issue.severity}</div>
-        //                             <div class="list-item-group-btn">
-        //                                 <button id="update-status-btn" value="1" class="btn btn--close" onclick="updateIssueStatus('${issue.id}')" >Close</button>
-        //                                 <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
-        //                             </div>
-        //                         </div>
-        //                     </li>
-        //                     <br>
-        //                 `
-        //             })
-        //         })
-        // }
+    fetch(`${backendApi}/api/todos/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateIssue),
     })
+
+    // console.log('dataIssues: ', dataIssues)
+    const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array  (! super important)
+
+    const issueIndex = dataIssues.findIndex(issue => issue.id === id);
+    
+    newIssues[issueIndex].status = updateStt;
+    // console.log('newIssues: ', newIssues)
+
+    renderData(newIssues)
 };
 
 
-// search issue     ________________________________________ START SEARCH __________________________________________
-// const searchValue = document.getElementById("search-box").value;
-// console.log(searchValue);
-
-document.getElementById("search-box").addEventListener('keyup', function(event) {
+// search feature
+searchBox.addEventListener('keyup', function(event) {
     searchIssue(event);
 });
 
 function searchIssue(event) {
     const searchString = event.target.value.toLowerCase();
     // console.log(searchString)
-    getApiTodo(responseData => {
+    callApi(responseData => {
         const issues = responseData.data;
         // console.log(issues)
         issuesList.innerHTML = '';
-        const filteredIssues = issues.filter(issue => {
+        const matchedIssues = issues.filter(issue => {
             return issue.description.toLowerCase().includes(searchString)
         });
-        filteredIssues.forEach(issue => {
+        matchedIssues.forEach(issue => {
             issuesList.innerHTML += `
                 <li id="issue-list-item--${issue.id}" class="issue-list-item">
                     <div class="list-item-header">
                         <div for="" class="list-item-title">${issue.id}</div>
-                        <div class="list-item-status">${issue.status}</div>
+                        <div id="issueStatus" class="list-item-status">${issue.status}</div>
                     </div>
                     <div class="list-item-content">
                         <h3 class="issue-name">${issue.description}</h3>
                         <div class="list-item-severity">${issue.severity}</div>
                         <div class="list-item-group-btn">
-                            <button class="btn btn--close">Close</button>
+                        
+                            <button id="changeSttBtn" class="btn btn--close" onclick="updateIssueStt('${issue.id}', '${issue.status}')">
+                                ${(issue.status === 'new' ? 'Close' : 'Open')}
+                            </button>
+                            
+                            
                             <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
                         </div>
                     </div>
@@ -237,49 +239,193 @@ function searchIssue(event) {
         })        
     });
 
-}
-// ___________________________________________________ DONE SEARCH_________________________________________
+};
 
-// filter status
-// function filterByStatus(filterBtnId) {
+
+// filter btn event
+filterAllBtn.addEventListener('click', function() {
+    filterManual(filterAll);
+});
+
+filterOpenBtn.addEventListener('click', function() {
+    filterManual(filterOpen);
+});
+
+filterCloseBtn.addEventListener('click', function() {
+    filterManual(filterClose);
+});
+
+// filter issue
+function filterManual(value) {
+    callApi(responseData => {
+        const issues = responseData.data;
+        // console.log(issues)
+        issuesList.innerHTML = '';
+        const filteredIssues = issues.filter(issue => {
+            if(value === 'open') return issue.status.toLowerCase() === 'new';
+            if(value === 'close') return issue.status.toLowerCase() === value;
+            if(value === 'all') return issue.status.toLowerCase() === 'new' || issue.status.toLowerCase() === 'close';
+        });
+        filteredIssues.forEach(issue => {
+            issuesList.innerHTML += `
+                <li id="issue-list-item--${issue.id}" class="issue-list-item">
+                    <div class="list-item-header">
+                        <div for="" class="list-item-title">${issue.id}</div>
+                        <div id="issueStatus" class="list-item-status">${issue.status}</div>
+                    </div>
+                    <div class="list-item-content">
+                        <h3 class="issue-name">${issue.description}</h3>
+                        <div class="list-item-severity">${issue.severity}</div>
+                        <div class="list-item-group-btn">
+                        
+                            <button id="changeSttBtn" class="btn btn--close" onclick="updateIssueStt('${issue.id}', '${issue.status}')">
+                                ${(issue.status === 'new' ? 'Close' : 'Open')}
+                            </button>
+                            
+                            
+                            <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
+                        </div>
+                    </div>
+                </li>
+                <br>
+            `
+        })        
+    });
+};
+
+
+// // filter issues
+// function filterAllIssue() {
+//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
+//     renderData(newIssues);
+// };
+
+// function filterOpenIssue() {
+//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
+
+
+//     const filteredIssues = newIssues.filter(issue => issue.status === 'new');
+//         // console.log('u need: ', filteredIssues)
+//     renderData(filteredIssues);
 
 // }
 
 
+// function filterIssue(value) {
+//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
 
 
-document.getElementById("search-box").addEventListener('keyup', function(event) {
-    searchIssue(event);
+//     // console.log('u need right here: ',newIssues )
+//     // if(value === 'all') {
+//     //     // console.log('u need: ');
+//     //     renderData(newIssues);
+//     // };
+
+//     // if(value === 'open') {
+//     //     const filteredIssues = newIssues.filter(issue => issue.status === 'new');
+//     //     // console.log('u need: ', filteredIssues)
+//     //     renderData(filteredIssues);
+//     // };
+
+//     if(value === 'close') {
+//         const filteredIssues = newIssues.filter(issue => issue.status === 'close');
+//         renderData(filteredIssues);
+//     };
+
+// };
+
+
+
+
+// order by event
+orderBy.addEventListener('change', function() {
+    sortOrder();
 });
-// document.getElementById("all-status").addEventListener('click', function(event) {
-//     const searchString = event.target.value.toLowerCase();
-//     // console.log(searchString)
-//     getApiTodo(responseData => {
-//         const issues = responseData.data;
-//         // console.log(issues)
-//         issuesList.innerHTML = '';
-//         const filteredIssues = issues.filter(issue => {
-//             return issue.description.toLowerCase().includes(searchString)
-//         });
-//         filteredIssues.forEach(issue => {
-//             issuesList.innerHTML += `
-//                 <li id="issue-list-item--${issue.id}" class="issue-list-item">
-//                     <div class="list-item-header">
-//                         <div for="" class="list-item-title">${issue.id}</div>
-//                         <div class="list-item-status">${issue.status}</div>
-//                     </div>
-//                     <div class="list-item-content">
-//                         <h3 class="issue-name">${issue.description}</h3>
-//                         <div class="list-item-severity">${issue.severity}</div>
-//                         <div class="list-item-group-btn">
-//                             <button class="btn btn--close">Close</button>
-//                             <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
-//                         </div>
-//                     </div>
-//                 </li>
-//                 <br>
-//             `
-//         })        
-//     });
-// });
+
+
+
+function sortOrder() {
+    callApi(responseData => {
+        const issues = responseData.data;
+        issuesList.innerHTML = '';
+        const selectOrderValue = orderBy.value;
+
+        // set priority to order
+        const issuePriority = {
+            'low': 1,
+            'medium': 2,
+            'high': 3,
+        };
+
+        let orderedIssues;
+        let sortResult;
+        console.log(orderedIssues);
+        function sortAsc(array, property, Prio) {
+            sortResult = array.sort((a, b) => {
+                if (Prio[a[property]] < Prio[b[property]]) return -1;
+                if (Prio[a[property]] > Prio[b[property]]) return 1;
+                return 0;
+            })
+            return sortResult;
+        };
+        
+        function sortPrioDesc(array, property, Prio) {
+            const sortResult = array.sort((a, b) => {
+                if (Prio[a[property]] > Prio[b[property]]) return -1;
+                if (Prio[a[property]] < Prio[b[property]]) return 1;
+                return 0;
+            })
+            return sortResult;
+        };
+
+        console.log(sortAsc(issues, 'severity', issuePriority))
+
+
+        if(selectOrderValue === 'asc') {
+            orderedIssues = sortAsc(issues, 'severity', issuePriority);
+            return orderedIssues;
+        };
+        if(selectOrderValue === 'desc') {
+            orderedIssues = sortPrioDesc(issues, 'severity', issuePriority);
+            return orderedIssues;
+        };
+        console.log('u need: ', orderedIssues);                 // error here
+
+        // if(selectOrderValue === 'asc') {
+        //     const orderedIssues = issues.sort((a, b) => {
+        //         if(issuePriority[a.severity] < issuePriority[b.severity]) return -1;
+        //         if(issuePriority[a.severity] > issuePriority[b.severity]) return 1;
+        //         return 0;
+        //     });
+        // };
+        console.log(orderedIssues);
+        
+        orderedIssues.forEach(issue => {
+            issuesList.innerHTML += `
+                <li id="issue-list-item--${issue.id}" class="issue-list-item">
+                    <div class="list-item-header">
+                        <div for="" class="list-item-title">${issue.id}</div>
+                        <div id="issueStatus" class="list-item-status">${issue.status}</div>
+                    </div>
+                    <div class="list-item-content">
+                        <h3 class="issue-name">${issue.description}</h3>
+                        <div class="list-item-severity">${issue.severity}</div>
+                        <div class="list-item-group-btn">
+                        
+                            <button id="changeSttBtn" class="btn btn--close" onclick="updateIssueStt('${issue.id}', '${issue.status}')">
+                                ${(issue.status === 'new' ? 'Close' : 'Open')}
+                            </button>
+                            
+                            
+                            <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
+                        </div>
+                    </div>
+                </li>
+                <br>
+            `
+        })        
+    });
+
+};
+
 

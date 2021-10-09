@@ -14,6 +14,15 @@ body {
   font-size: 1.6rem;
 }
 
+.header {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+
 .main {
   width: 100%;
   height: 100%;
@@ -30,12 +39,16 @@ body {
   max-width: 84%;
 }
 
+.header-container {
+  justify-content: end;
+}
+
 .main-content {
   width: 100%;
 }
 
 .app-title {
-  margin: 90px auto;
+  margin: 6rem auto 9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,7 +110,7 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.bot-form-group {
+.main-feature-group {
   margin-bottom: 25px;
 }
 
@@ -258,6 +271,20 @@ hr {
 .btn--delete:hover {
   background-color: #c82333;
   border-color: #bd2130;
+}
+
+.btn--signout {
+  padding: 8px 12px;
+  background-color: #ffffff;
+  color: #007bff;
+  border-radius: 16px;
+  border: 1px solid #007bff;
+}
+
+.btn--signout:hover {
+  /* background-color: #ccc; */
+  background-color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
 /*# sourceMappingURL=style.css.map */

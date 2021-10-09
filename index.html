@@ -13,27 +13,34 @@
 </head>
 <body>
     <div class="wrapper">
+        <header class="header">
+            <div class="container header-container">
+                <button id="signout" class="btn btn--signout">Sign out</button>
+            </div>
+        </header>
         <div class="main">
             <div class="container">
                 <div class="main-content">
                     <section class="app-title">
                         <h1 class="app-name">ISSUE TRACKER</h1>
                     </section>
-            
+
                     <section class="form">
                         <form action="" id="issueInputForm" autocomplete="off">
                             <div class="top-form">
-                                <div class="top-form-group">    <!--row-->
+                                <div class="top-form-group">
+                                    <!--row-->
                                     <div class="input-title">Description</div>
-                                    <input id="inputIssueDescription" type="text" class="issue-input" placeholder="Describe the issue ...">
+                                    <input id="inputIssueDescription" type="text" class="issue-input"
+                                        placeholder="Describe the issue ...">
                                 </div>
 
                                 <div class="top-form-group">
                                     <div class="input-title">Severity</div>
                                     <select name="" id="severity-status" class="severity-status">
-                                        <option value="Low">Low</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="High">High</option>
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
                                     </select>
                                 </div>
 
@@ -50,38 +57,42 @@
 
                             <hr>
 
-                            <div class="bot-form">
-                                <div class="bot-form-group">
-                                    <div class="list-feature-search-field">
-                                        <h2 class="list-name">List Issue</h2>
-                                        <input type="input" id="search-box" class="search-box" placeholder="Search by description">
-                                    </div>
+                        </form>
+                        <div class="main-feature">
+                            <div class="main-feature-group">
+                                <div class="list-feature-search-field">
+                                    <h2 class="list-name">List Issue</h2>
+                                    <input type="input" id="search-box" class="search-box"
+                                        placeholder="Search by description" autocomplete="off">
                                 </div>
-                                <div class="bot-form-group">
-                                    <div class="list-feature-filter">
-                                        <label for="" class="feature-label">Filter:</label>
-                                        <div class="group-btn">
-                                            <button id="all-status" class="btn filter-status-btn--all">All</button>
-                                            <button id="open-status" class="btn filter-status-btn--open">Open</button>
-                                            <button id="close-status" class="btn filter-status-btn--close">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bot-form-group">
-                                    <div class="list-feature-sort">
-                                        <label for="" class="feature-label">Order By:</label>
-                                        <select name="" id="sort-value">
-                                            <option value="ASC">ASC</option>
-                                            <option value="DESC">DESC</option>
-                                        </select>
+                            </div>
+                            <div class="main-feature-group">
+                                <div class="list-feature-filter">
+                                    <label for="" class="feature-label">Filter:</label>
+                                    <div class="group-btn">
+                                        <button id="all-status" value="all" class="btn filter-status-btn--all">All</button>
+                                        <button id="open-status" value="open" class="btn filter-status-btn--open">Open</button>
+                                        <button id="close-status" value="close"
+                                            class="btn filter-status-btn--close">Close</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                            <div class="main-feature-group">
+                                <div class="list-feature-sort">
+                                    <label for="" class="feature-label">Order By:</label>
+                                    <select name="" id="sort-value">
+                                        <option value="asc">ASC</option>
+                                        <option value="desc">DESC</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section class="issue-list">
-                        <ul id="issuesList" class="issue-list__list"></ul>
+                        <ul id="issuesList" class="issue-list__list">
+                            
+                        </ul>
                     </section>
                 </div>
             </div>
