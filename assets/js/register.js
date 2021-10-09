@@ -87,7 +87,6 @@ function addUser() {
         });
 };
 
-// tesst pull code ?
 
 // post user to server
 function postUser(postData) {
