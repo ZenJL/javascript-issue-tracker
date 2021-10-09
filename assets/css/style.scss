@@ -1,0 +1,267 @@
+html {
+    // 1rem = 10px
+    font-size: 62.5%;
+    line-height: 1.5;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    font-size: 1.6rem;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: rgb(64, 210, 247);
+    width: 100vw;
+    max-width: 84%;
+}
+
+.main-content {
+    // padding: 5px;
+    width: 100%;
+}
+
+.app-title {
+    margin: 90px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-name {
+    font-size: 3.2rem;
+}
+
+.top-form-group {
+    margin-bottom: 6px;
+}
+
+.input-title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.issue-input,
+.severity-status {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+#sort-value:focus,
+.search-box:focus,
+.issue-input:focus,
+.severity-status:focus {
+    outline: none;
+    box-shadow: 0 0 6px 2px rgb(128,189,255);
+    border-color: rgb(128,189,255);
+}
+
+.wrap-submit-btn {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.btn {
+    min-width: 56px;
+
+    font-size: 1.6rem;
+    padding: 10px 14px;
+    background-color: rgb(0,123,255);
+    align-items: center;
+    color: #fff;
+    border-radius: 6px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bot-form-group {
+    margin-bottom: 25px;
+}
+
+.list-feature-search-field {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-name {
+    font-size: 2.8rem;
+    font-weight: 500;
+    cursor: default;
+}
+
+.search-box {
+    max-width: 200px;
+    font-size: 1.6rem;
+    padding: 9px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+.list-feature-filter {
+    display: flex;
+    align-items: center;
+}
+
+.feature-label {
+    width: 160px;
+}
+
+.group-btn {
+    display: flex;
+    align-items: center;
+}
+
+.filter-status-btn--all,
+.filter-status-btn--open,
+.filter-status-btn--close {
+    margin: 0 2px;
+    padding: 10px 0;
+    font-size: 1.4rem;
+}
+
+.filter-status-btn--open {
+    background-color: rgb(40,167,69);
+}
+
+.filter-status-btn--close {
+    background-color: rgb(23,162,184);
+}
+
+.list-feature-sort {
+    display: flex;
+    align-items: center;
+}
+
+#sort-value {
+    width: 160px;
+    margin-left: 2px;
+    padding: 9px;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.issue-list__list {
+    margin-bottom: 24px;
+}
+
+.issue-list-item {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ced4da;
+}
+
+.list-item-header {
+    width: 100%;
+    height: 50px;
+    font-size: 1.6rem;
+    background-color: rgb(247,247,247);
+    border-bottom: 1px solid #ced4da;
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+}
+
+
+.list-item-status {
+    height: 20px;
+    border: 1px solid #6C757D;
+    border-radius: 4px;
+    background-color: #6C757D;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    padding: 4px 10px;
+}
+
+.list-item-content {
+    padding: 24px 20px;
+}
+
+.issue-name {
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: default;
+    margin-bottom: 20px;
+
+}
+
+.list-item-severity {
+    height: 20px;
+    border: 1px solid rgb(0,123,255);
+    border-radius: 4px;
+    background-color: rgb(0,123,255);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    display: inline-flex;
+    flex-shrink: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    display: none;
+}
+
+.list-item-group-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.btn--delete {
+    background-color: #DC3545;
+    margin-left: 10px;
+}
+
+.btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.filter-status-btn--open:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.filter-status-btn--close:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.btn--delete:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}

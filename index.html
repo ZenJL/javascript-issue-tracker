@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISSUE TRACKER APP</title>
+
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <div class="container">
+                <div class="main-content">
+                    <section class="app-title">
+                        <h1 class="app-name">ISSUE TRACKER</h1>
+                    </section>
+            
+                    <section class="form">
+                        <form action="" id="issueInputForm" autocomplete="off">
+                            <div class="top-form">
+                                <div class="top-form-group">    <!--row-->
+                                    <div class="input-title">Description</div>
+                                    <input id="inputIssueDescription" type="text" class="issue-input" placeholder="Describe the issue ...">
+                                </div>
+
+                                <div class="top-form-group">
+                                    <div class="input-title">Severity</div>
+                                    <select name="" id="severity-status" class="severity-status">
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
+                                </div>
+
+                                <div class="top-form-group wrap-submit-btn">
+                                    <!--
+                                         <button class="btn" onclick="addIssue()">Add</button> 
+                                         đừng nên viết onclick ở đây, khi đã viết file js nên viết theo bên đó tạo thành 1 luồng thống nhất
+                                         thêm type="submit" bỏ onclick="addIssue()"
+                                    -->
+                                    <button type="submit" class="btn">Add</button>
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="bot-form">
+                                <div class="bot-form-group">
+                                    <div class="list-feature-search-field">
+                                        <h2 class="list-name">List Issue</h2>
+                                        <input type="input" id="search-box" class="search-box" placeholder="Search by description">
+                                    </div>
+                                </div>
+                                <div class="bot-form-group">
+                                    <div class="list-feature-filter">
+                                        <label for="" class="feature-label">Filter:</label>
+                                        <div class="group-btn">
+                                            <button id="all-status" class="btn filter-status-btn--all">All</button>
+                                            <button id="open-status" class="btn filter-status-btn--open">Open</button>
+                                            <button id="close-status" class="btn filter-status-btn--close">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bot-form-group">
+                                    <div class="list-feature-sort">
+                                        <label for="" class="feature-label">Order By:</label>
+                                        <select name="" id="sort-value">
+                                            <option value="ASC">ASC</option>
+                                            <option value="DESC">DESC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="issue-list">
+                        <ul id="issuesList" class="issue-list__list"></ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="./assets/js/fetch_api.js"></script> -->
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

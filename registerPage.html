@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Account _ Issue Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/registerPage.css">
+</head>
+<body>
+    <main class="main-content">
+        <div class="register">
+            <div class="register__content">
+                <h2 class="register__heading">Create an account</h2>
+                <form action="" class="register-form" autocomplete="off">
+                    <div class="register-form__group">
+                        <label for="first-name" class="register-form__label">First Name</label>
+                        <input type="text" class="register-form__input" id="first-name" required>
+                    </div>
+                    <div class="register-form__group">
+                        <label for="last-name" class="register-form__label">Last Name</label>
+                        <input type="text" class="register-form__input" id="last-name" required>
+                    </div>
+                    <div class="register-form__group">
+                        <label for="email" class="register-form__label">Email</label>
+                        <input type="email" class="register-form__input" id="email" required>
+                    </div>
+                    <div class="register-form__group">
+                        <label for="password" class="register-form__label">Password</label>
+                        <input type="password" class="register-form__input register-form__input-pass" id="password" required>
+                    </div>
+                    <div class="register-form__group">
+                        <label for="confirm-password" class="register-form__label">Confirm Password</label>
+                        <input type="password" class="register-form__input register-form__input-pass" id="confirm-password" required>
+                    </div>
+                    <div class="register-form__term">
+                        By continuing, you agree to our User Agreement and Privacy Policy.
+                    </div>
+                    <button class="register-form__submit">Create account</button>
+                    <div class="register__remind-acc-mess">
+                        <a href="./loginPage.html" class="register__create-acc-link">I already have account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>

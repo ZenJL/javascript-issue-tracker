@@ -1,0 +1,150 @@
+:root {
+    --primary-color: #0087FF;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1.6rem;
+    font-weight: normal;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+}
+
+input,
+textarea,
+select,
+button {
+    outline: none;
+    font-size: 1.6rem;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.register {
+    background-image: url(../img/bg-moon.jpg);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-color: #cccccc;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register__content {
+    border-radius: 1rem;
+    background-color: #FFFFFF;
+    padding: 3rem 5rem;
+    margin: 5rem 0;
+    width: 30vw;
+    height: 100%;
+    position: relative;
+}
+
+.register__content::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 7%;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent; 
+    border-right: 8px solid #285961; 
+}
+
+.register__content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7%;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #2A525A;
+}
+
+.register__heading {
+    margin-bottom: 3.6rem;
+    font-size: 2.4rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.register-form__group {
+    margin-bottom: 2rem;
+}
+
+.register-form__label {
+    display: inline-block;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.register-form__input {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 2.2rem;
+    border: none;
+    border-bottom: 2px solid #95c4ee;
+    color: var(--primary-color)
+}
+
+.register-form__input-pass {
+    color: var(--primary-color);
+    font-weight: bold;
+    font: small-caption;
+    font-size: 2.2rem;
+}
+
+.register-form__term {
+    margin-top: 2rem;
+    text-align: justify; 
+
+}
+
+
+.register-form__submit {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 4.8rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register__remind-acc-mess {
+    text-align: center;
+}
+
+.register__create-acc-link {
+    color: var(--primary-color);
+}
