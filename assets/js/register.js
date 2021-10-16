@@ -10,6 +10,18 @@ const password = document.getElementById('password');
 const passwordConfirm = document.getElementById('confirm-password');
 
 
+
+let usersList = [];
+
+function getUsers(callback) {
+    fetch(`${backendApi}/api/users`)
+        .then(response => response.json())
+        .then(callback)
+};
+
+getUsers(responseData => usersList = responseData.data);
+
+
 // register form event
 registerForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -25,20 +37,65 @@ function addUser() {
     const userPassword = password.value;
     const userPassConfirm = passwordConfirm.value;
 
-    // validate multiple input
-    const inputValues = [
-        userFirstName,
-        userLastName,
-        userEmail,
-        userPassword,
-        userPassConfirm,
-    ];
-    const validateInput = inputValues.some(element => element === '');
+    console.log(usersList);
 
-    if(validateInput === true) {
-        alert('Please enter full data');
+    const existUser = usersList.filter(user => {
+        return user.email;
+    });
+
+    // console.log('u need: ', existUser)
+    // console.log('value: ', userEmail)
+    const duplicateEmail = existUser.some(user => user.email === userEmail);
+    console.log('helllo: ', duplicateEmail);
+    
+    const showEmailError = document.getElementById('email-error-mess');
+
+    if(duplicateEmail === true) {
+        showEmailError.style.display = "block";
+        showEmailError.innerHTML = "The email has been registered. Please choose another email.";
         return;
     };
+
+    if(userEmail === '') {
+        showEmailError.style.display = "block";
+        showEmailError.innerHTML = "This field cannot be empty.";
+        return;
+    };
+    
+    const showFirstNameError = document.getElementById('firstName-error-mess');
+    if(userFirstName === '') {
+        showFirstNameError.style.display = "block";
+        showFirstNameError.innerHTML = "This field cannot be empty.";
+        return;
+    };
+
+    const showLastNameError = document.getElementById('lastName-error-mess');
+    if(userLastName === '') {
+        showLastNameError.style.display = "block";
+        showLastNameError.innerHTML = "This field cannot be empty.";
+        return;
+    };  
+
+    const showPasswordError = document.getElementById('password-error-mess');
+    if(userPassword === '') {
+        showPasswordError.style.display = "block";
+        showPasswordError.innerHTML = "This field cannot be empty.";
+        return;
+    };
+
+    const showPasswordConfirmError = document.getElementById('passwordConfirm-error-mess');
+    if(userPassConfirm === '') {
+        showPasswordConfirmError.style.display = "block";
+        showPasswordConfirmError.innerHTML = "This field cannot be empty.";
+        return;
+    };
+
+    if(userPassConfirm !== userPassword) {
+        showPasswordConfirmError.style.display = "block";
+        showPasswordConfirmError.innerHTML = "The password confirmation does not match.";
+        return;
+    };
+
 
     const userInfo = {
         "firstName": userFirstName,
@@ -67,24 +124,19 @@ function addUser() {
     //   ]
     // }
 
-    // call users api to check existed
-    fetch(`${backendApi}/api/users`)
-        .then(response => response.json())
-        .then(responseData => {
-            const usersList = responseData.data;
-            console.log(usersList)
-            const existEmail = usersList.some(element => element.email === userEmail)
+        
+    // console.log('u need: ', usersList);
+    postUser(userInfo);
 
-            if(existEmail === true) {
-                alert('email already registered, please choose another email');
-                return;
-            };
 
-            // console.log('u need: ', usersList);
-            postUser(userInfo);
-            
-            // window.location.href = './loginPage.html'
-        });
+    const successfulMess = document.getElementById('successful');
+    successfulMess.style.display = 'flex';
+    successfulMess.style.justifyContent = 'center';
+    successfulMess.style.alignItems = 'center'
+    
+    setTimeout(() => {
+        window.location.href = '../../loginPage.html'
+    }, 2000)
 };
 
 
@@ -97,8 +149,6 @@ function postUser(postData) {
         },
         body: JSON.stringify(postData),
     })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
 }
 
 

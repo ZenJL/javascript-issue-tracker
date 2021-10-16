@@ -17,14 +17,16 @@
         <div class="login">
             <div class="login__content">
                 <h2 class="login__heading">Login</h2>
-                <form action="" id="login-form" class="login-form" autocomplete="off">
+                <form action="" id="login-form" class="login-form">
                     <div class="login-form__group">
                         <label for="email" class="login-form__label">Email</label>
-                        <input type="email" class="login-form__input" id="email" required placeholder="enter your email here">
+                        <input type="email" class="login-form__input" id="email" required placeholder="Enter your email">
+                        <label for="" id="email-error-mess" class="email-error-mess"></label>
                     </div>
                     <div class="login-form__group">
                         <label for="password" class="login-form__label">Password</label>
-                        <input type="password" class="login-form__input login-form__input-pass" id="password" required placeholder="enter your password">
+                        <input type="password" class="login-form__input login-form__input-pass" id="password" required placeholder="Enter your password">
+                        <label for="" id="password-error-mess" class="password-error-mess"></label>
                     </div>
                     <button type="submit" class="login-form__submit">Login</button>
                     <div class="login__create-acc-notify">
@@ -35,7 +37,10 @@
             </div>
         </div>
     </main>
-    <!-- testing 1 2 3 ??? -->
+
+    <div id="loading" class="loading">
+        <i class="fas fa-spinner"></i>
+    </div>
 
     <script src="./assets/js/login.js"></script>
 </body>
