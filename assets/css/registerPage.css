@@ -60,7 +60,7 @@ img {
     background-color: #FFFFFF;
     padding: 3rem 5rem;
     margin: 5rem 0;
-    width: 30vw;
+    width: 40rem;
     height: 100%;
     position: relative;
 }
@@ -101,6 +101,10 @@ img {
     display: inline-block;
     font-weight: 500;
     color: var(--primary-color);
+}
+
+.mandatory {
+    color: red;
 }
 
 .register-form__input {
@@ -147,4 +151,67 @@ img {
 
 .register__create-acc-link {
     color: var(--primary-color);
+}
+
+.firstName-error-mess,
+.lastName-error-mess,
+.email-error-mess,
+.password-error-mess,
+.passwordConfirm-error-mess {
+    display: block;
+    font-weight: 400;
+    color: red;
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    display: none;
+}
+
+.successful {
+    width: 20rem;
+    height: 10rem;
+    background-color: rgba(255, 255, 255, 0.856);
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(10, 134, 10);
+    border-radius: 16px;
+    text-align: center;
+    display: none;
+}
+
+.popup-successful {
+    color: rgb(10, 134, 10);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+
+/* responsive media */
+/* 768px */
+@media screen and (max-width: 48em) {
+    .register {
+        height: 100%;
+        padding: 1.6rem 0;
+    }
+}
+
+/* 480px */
+@media screen and (max-width: 30em) {
+    .register__content {
+        width: 30rem;
+    }
+}
+
+/* 320px */
+@media screen and (max-width: 20em) {       
+    .register {
+        padding: 4rem 0;
+    }
+
+    .register__content {
+        width: 100%;
+    }
 }
