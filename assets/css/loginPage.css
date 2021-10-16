@@ -59,7 +59,7 @@ img {
     border-radius: 1rem;
     background-color: #FFFFFF;
     padding: 3rem 5rem;
-    width: 30vw;
+    width: 41.2rem;
     position: relative;
     border: none;
 }
@@ -148,6 +148,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .login__create-acc-link {
@@ -157,3 +158,60 @@ img {
     color: var(--primary-color);
 }
 
+.email-error-mess,
+.password-error-mess {
+    display: block;
+    font-weight: 400;
+    color: red;
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    display: none;
+}
+
+#loading {
+    display: none;
+}
+
+.loading i {
+    animation: spin 1s ease-in infinite;
+    transform: rotate(0deg);
+    visibility: hidden;
+}
+
+.loading.active i {
+    visibility: visible;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* responsive media */
+/* 768px */
+@media screen and (max-width: 48em) {
+    .login {
+        height: 100%;
+        padding: 1.6rem 0;
+    }
+}
+
+/* 480px */
+@media screen and (max-width: 30em) {
+    .login__content {
+        width: 30rem;
+    }
+}
+
+/* 320px */
+@media screen and (max-width: 20em) {       
+    .login {
+        padding: 4rem 0;
+    }
+
+    .login__content {
+        width: 100%;
+    }
+}

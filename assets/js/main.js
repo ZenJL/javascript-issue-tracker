@@ -21,10 +21,6 @@ const filterClose = filterCloseBtn.value;
 const orderBy = document.getElementById('sort-value');
 
 
-signoutBtn.addEventListener('click', function() {
-    window.location.href = '../../loginPage.html'
-});
-
 // enable autoReload
 autoReload();
 
@@ -294,138 +290,48 @@ function filterManual(value) {
 };
 
 
-// // filter issues
-// function filterAllIssue() {
-//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
-//     renderData(newIssues);
-// };
-
-// function filterOpenIssue() {
-//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
-
-
-//     const filteredIssues = newIssues.filter(issue => issue.status === 'new');
-//         // console.log('u need: ', filteredIssues)
-//     renderData(filteredIssues);
-
-// }
-
-
-// function filterIssue(value) {
-//     const newIssues = JSON.parse(JSON.stringify(dataIssues)); // clone deep array
-
-
-//     // console.log('u need right here: ',newIssues )
-//     // if(value === 'all') {
-//     //     // console.log('u need: ');
-//     //     renderData(newIssues);
-//     // };
-
-//     // if(value === 'open') {
-//     //     const filteredIssues = newIssues.filter(issue => issue.status === 'new');
-//     //     // console.log('u need: ', filteredIssues)
-//     //     renderData(filteredIssues);
-//     // };
-
-//     if(value === 'close') {
-//         const filteredIssues = newIssues.filter(issue => issue.status === 'close');
-//         renderData(filteredIssues);
-//     };
-
-// };
-
-
 
 
 // order by event
 orderBy.addEventListener('change', function() {
-    sortOrder();
+    if(orderBy.value === 'asc') {
+        callApi((responseData) => {
+            renderData(sortAsc(responseData))
+        })
+    };
+    if(orderBy.value === 'desc') {
+        callApi((responseData) => {
+            renderData(sortDesc(responseData))
+        })
+    };
+
 });
 
-
-
-function sortOrder() {
-    callApi(responseData => {
-        const issues = responseData.data;
-        issuesList.innerHTML = '';
-        const selectOrderValue = orderBy.value;
-
-        // set priority to order
-        const issuePriority = {
-            'low': 1,
-            'medium': 2,
-            'high': 3,
-        };
-
-        let orderedIssues;
-        let sortResult;
-        console.log(orderedIssues);
-        function sortAsc(array, property, Prio) {
-            sortResult = array.sort((a, b) => {
-                if (Prio[a[property]] < Prio[b[property]]) return -1;
-                if (Prio[a[property]] > Prio[b[property]]) return 1;
-                return 0;
-            })
-            return sortResult;
-        };
-        
-        function sortPrioDesc(array, property, Prio) {
-            const sortResult = array.sort((a, b) => {
-                if (Prio[a[property]] > Prio[b[property]]) return -1;
-                if (Prio[a[property]] < Prio[b[property]]) return 1;
-                return 0;
-            })
-            return sortResult;
-        };
-
-        console.log(sortAsc(issues, 'severity', issuePriority))
-
-
-        if(selectOrderValue === 'asc') {
-            orderedIssues = sortAsc(issues, 'severity', issuePriority);
-            return orderedIssues;
-        };
-        if(selectOrderValue === 'desc') {
-            orderedIssues = sortPrioDesc(issues, 'severity', issuePriority);
-            return orderedIssues;
-        };
-        console.log('u need: ', orderedIssues);                 // error here
-
-        // if(selectOrderValue === 'asc') {
-        //     const orderedIssues = issues.sort((a, b) => {
-        //         if(issuePriority[a.severity] < issuePriority[b.severity]) return -1;
-        //         if(issuePriority[a.severity] > issuePriority[b.severity]) return 1;
-        //         return 0;
-        //     });
-        // };
-        console.log(orderedIssues);
-        
-        orderedIssues.forEach(issue => {
-            issuesList.innerHTML += `
-                <li id="issue-list-item--${issue.id}" class="issue-list-item">
-                    <div class="list-item-header">
-                        <div for="" class="list-item-title">${issue.id}</div>
-                        <div id="issueStatus" class="list-item-status">${issue.status}</div>
-                    </div>
-                    <div class="list-item-content">
-                        <h3 class="issue-name">${issue.description}</h3>
-                        <div class="list-item-severity">${issue.severity}</div>
-                        <div class="list-item-group-btn">
-                        
-                            <button id="changeSttBtn" class="btn btn--close" onclick="updateIssueStt('${issue.id}', '${issue.status}')">
-                                ${(issue.status === 'new' ? 'Close' : 'Open')}
-                            </button>
-                            
-                            
-                            <button class="btn btn--delete" onclick="deleteIssue('${issue.id}')">Delete</button>
-                        </div>
-                    </div>
-                </li>
-                <br>
-            `
-        })        
+// sort order asc
+function sortAsc(responseData) {
+    const allData = responseData.data;
+    return allData.sort((a, b) => {
+        if(a.description < b.description) return -1;
     });
+};
 
+// sort order desc
+function sortDesc(responseData) {
+    const allData = responseData.data;
+    return allData.sort((a, b) => {
+        if(a.description > b.description) return -1;
+    });
 };
 
 
+// logout
+signoutBtn.addEventListener('click', function() {
+    localStorage.removeItem('user');
+    window.location.href = '../../loginPage.html';
+});
+
+// auto login dashboard with local storage
+const userEmail = localStorage.getItem('user');
+if(userEmail === null) {
+    window.location.href = '../../loginPage.html';
+};

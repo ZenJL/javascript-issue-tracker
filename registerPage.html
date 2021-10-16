@@ -15,31 +15,36 @@
 </head>
 
 <body>
+    
     <main class="main-content">
         <div class="register">
             <div class="register__content">
                 <h2 class="register__heading">Create an account</h2>
                 <form action="" id="register-form" class="register-form" autocomplete="off">
                     <div class="register-form__group">
-                        <label for="first-name" class="register-form__label">First Name</label>
+                        <label for="first-name" class="register-form__label">First Name <span class="mandatory">*</span></label>
                         <input type="text" class="register-form__input" id="first-name">
+                        <label for="" id="firstName-error-mess" class="firstName-error-mess"></label>
                     </div>
                     <div class="register-form__group">
-                        <label for="last-name" class="register-form__label">Last Name</label>
+                        <label for="last-name" class="register-form__label">Last Name <span class="mandatory">*</span></label>
                         <input type="text" class="register-form__input" id="last-name">
+                        <label for="" id="lastName-error-mess" class="lastName-error-mess"></label>
                     </div>
                     <div class="register-form__group">
-                        <label for="email" class="register-form__label">Email</label>
+                        <label for="email" class="register-form__label">Email <span class="mandatory">*</span></label>
                         <input type="email" class="register-form__input" id="email">
+                        <label for="" id="email-error-mess" class="email-error-mess"></label>
                     </div>
                     <div class="register-form__group">
-                        <label for="password" class="register-form__label">Password</label>
+                        <label for="password" class="register-form__label">Password <span class="mandatory">*</span></label>
                         <input type="password" class="register-form__input register-form__input-pass" id="password">
+                        <label for="" id="password-error-mess" class="password-error-mess"></label>
                     </div>
                     <div class="register-form__group">
-                        <label for="confirm-password" class="register-form__label">Confirm Password</label>
-                        <input type="password" class="register-form__input register-form__input-pass"
-                            id="confirm-password">
+                        <label for="confirm-password" class="register-form__label">Confirm Password <span class="mandatory">*</span></label>
+                        <input type="password" class="register-form__input register-form__input-pass" id="confirm-password">
+                        <label for="" id="passwordConfirm-error-mess" class="passwordConfirm-error-mess"></label>
                     </div>
                     <div class="register-form__term">
                         By continuing, you agree to our User Agreement and Privacy Policy.
@@ -50,9 +55,13 @@
                     </div>
                 </form>
             </div>
+            <div id="successful" class="successful">
+                <span class="popup-successful">Registration Success</span>
+            </div>
         </div>
+        
     </main>
-
+    
 
     <script src="./assets/js/register.js"></script>
 </body>
